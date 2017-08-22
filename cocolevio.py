@@ -1,20 +1,25 @@
+def pricePer(customers):
+	buyers = customers
+	#Calculate the price per unit that each company is buying for
+	sellTo = {}
+	track = 0
+	for x in buyers:
+		name = buyers[track][0]
+		amount = buyers[track][1]
+		price = buyers[track][2]
+		ppunit = price/amount #price per unit
+		sale = price * amount
 
-def profits(company, amount, price, material):
-	#Calculate sale for sub company A
-	sale = price * amount
-
-	#Calculate total sale of all material to sub company A
-	numPurchase = 1
-	materialOrig = material
-	while(material >= 0):
-		newSale = price * numPurchase #sub Company A purchasing material
-		material = material - amount #Material avaiable to purchase decreasing
-		numPurchase += 1 #setting up loop for next purchase from sub company A
-	finalSale = newSale
-	materialLeft = material
-	print("Company, " + company + ", makes " + str(numPurchase)+ " purchases of " + str(materialOrig - materialLeft) + " units of material for a total of $" + str(finalSale))
+		#add company price per units to a dictionary
+		sellTo[name] = ppunit
+		track += 1
+	return(sellTo)
 
 def main():
-	test = profits("Bob's Bytes", 10, 30, 600)
-		
+	#Companies [company, amount, price]
+	buyers = [['Company A',1,1],['Company B',2,5],['Company C',3,8],['Company D',4,9],['Company E',5,10],['Company F',6,17],['Company G',7,17],['Company H',8,20],['Company I',9,24],['Company',10,30]] #Data
+	ppunit = pricePer(buyers)
+	print(sorted(ppunit.values()))
+
+
 main()
