@@ -17,9 +17,9 @@ def pricePer(customers):
 
 def main():
 	#Companies [company, amount, price]
-	buyers = [['Company A',1,1],['Company B',2,5],['Company C',3,8],['Company D',4,9],['Company E',5,10],['Company F',6,17],['Company G',7,17],['Company H',8,20],['Company I',9,24],['Company',10,30]] #Data
+	buyers = [['Company A',1,1],['Company B',2,5],['Company C',3,8],['Company D',4,9],['Company E',5,10],['Company F',6,17],['Company G',7,17],['Company H',8,20],['Company I',9,24],['Company J',10,30]] #Data
 	ppunit = pricePer(buyers)
-	print(sorted(ppunit.values()))
-
+	sortList = [(k,v) for v,k in sorted([(v,k) for k,v in ppunit.items()], reverse = True)]
+	print(sortList) #Got help from http://bytesizebio.net/2013/04/03/stupid-python-tricks-3296-sorting-a-dictionary-by-its-values/  Stupid Python Tricks 
 
 main()
