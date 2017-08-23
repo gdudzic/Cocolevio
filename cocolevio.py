@@ -1,9 +1,8 @@
 def listCompanies(group):
-	#Companies [company, amount, price]
 	#program reads in data from txt doc for companies instead of beginning with that info
 	buyers = []
 	for line in group:
-		line = line.strip() #No more \n woohoo! 
+		line = line.strip()
 		line = line.split(' ')
 		sub = []
 		for item in line:
@@ -12,22 +11,36 @@ def listCompanies(group):
 	return(buyers)
 
 def pricePer(customers):
-	buyers = customers
 	#Calculate the price per unit that each company is buying for
+	buyers = customers
 	sellTo = {}
-	track = 1
-	for x in buyers:
+	
+	#Get number of companies
+	length = 0  
+	for sublist in buyers:
+		for comps in sublist:
+			length += 1
+		break
+	#print(length)
+
+	#Get price per unit for each company
+	track = 1 
+	x = 0
+	while(x <= (length)): #why plus one??? 
+		if(track == (length)):
+			track = 1
 		name = buyers[0][track]
 		amount = int(buyers[1][track])
 		price = int(buyers[2][track])
 		ppunit = price/amount #price per unit
-		sale = price * amount
+		#sale = price * amount
 
 		#add company price per units to a dictionary
 		sellTo[name] = ppunit
 		track += 1
-		#break
+		x+=1
 	return(sellTo)
+
 
 def main():
 
@@ -42,14 +55,18 @@ def main():
 	#Calculate price at which each company is buying material per unit 
 	ppunit = pricePer(buyers)
 
-	#Give me a list filtered by price per unit (high to low)
+	#Give me a list filtered by price per unit (high to low). Convert dictionary to list
 	sortList = [(k,v) for v,k in sorted([(v,k) for k,v in ppunit.items()], reverse = True)] #Sorting by values (price per unit)
 	#Got help from http://bytesizebio.net/2013/04/03/stupid-python-tricks-3296-sorting-a-dictionary-by-its-values/  Stupid Python Tricks 
+	
+	#Print the list out for humans to (easily) read
+	print('\n')
+	print("Customer Companies Ranked by Profit Yields (highest to lowest)")
 	track = 0
 	for i in sortList: #This loop prints a prettier (relatively speaking :( )) list 
-		print(sortList[track])
+		print(str(sortList[track][0]) + " buys one unit for $%.2f" % (sortList[track][1]))
 		track += 1
-
+	print('\n')
 main()
 
 
